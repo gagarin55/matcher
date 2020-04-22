@@ -1,7 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        label 'buildagent'
+    }
     environment {
-        CI = 'true'
+        SBT_HOME = tool name: 'sbt-1.2.6', type: 'org.jvnet.hudson.plugins.SbtPluginBuilder$SbtInstallation'
+        SBT_THREAD_NUMBER = 7
+        PATH = "${env.SBT_HOME}/bin:${env.PATH}"
     }
     stages {
         stage('Compile') {
